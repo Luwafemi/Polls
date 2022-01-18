@@ -121,5 +121,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-#This was added manually to avoid certain errors. Check [https://docs.djangoproject.com/en/3.2/releases/3.2/#customizing-type-of-auto-created-primary-keys]
+#This was added manually to avoid certain error(s). 
+# Check [https://docs.djangoproject.com/en/3.2/releases/3.2/#customizing-type-of-auto-created-primary-keys]
+# [https://stackoverflow.com/questions/66971594/auto-create-primary-key-used-when-not-defining-a-primary-key-type-warning-in-dja]
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'

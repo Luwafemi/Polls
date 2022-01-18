@@ -10,7 +10,10 @@ class Question(models.Model):
         return self.question_text
 
     def was_published_recently(self):
-        return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
+        now = timezone.now()
+        return (now - datetime.timedelta(days=1) )<= (self.pub_date) <= (now)
+
+       #This method is used to check if a particular question was published within a day ago.
 
         
 class Choice(models.Model):
