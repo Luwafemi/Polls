@@ -23,7 +23,6 @@ class QuestionIndexViewTests(TestCase):
          response = self.client.get(reverse("polls:index"))
          self.assertEqual(response.status_code, 200)
          self.assertContains(response,"No polls available")
-        #  print({"a":response.context['latest_question_list']})
          self.assertQuerysetEqual(response.context['latest_question_list'],[])
 
 
@@ -34,8 +33,6 @@ class QuestionIndexViewTests(TestCase):
         """    
         question = create_question(question_text= "Past question.", days=-30)
         response = self.client.get(reverse("polls:index"))
-        print({"a":response.context['latest_question_list']})
-        print({"b":[question]})
         self.assertQuerysetEqual(response.context['latest_question_list'],[question],)
 
 class QuestionModelTests(TestCase):
