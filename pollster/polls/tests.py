@@ -6,6 +6,7 @@ from .models import Question
 
 
 # Create your tests here.
+
 def create_question(question_text, days):
     """
     Create a question with the given `question_text` and published the
@@ -34,6 +35,38 @@ class QuestionIndexViewTests(TestCase):
         question = create_question(question_text= "Past question.", days=-30)
         response = self.client.get(reverse("polls:index"))
         self.assertQuerysetEqual(response.context['latest_question_list'],[question],)
+    
+    def test_future_question(self):
+        """
+        Questions with a pub_date in the future aren't displayed on
+        the index page.
+        """
+        create_question(question_text="Future question.", days=30) 
+        response = self.client.get(reverse("polls:index"))
+        self.assertContains(response,"No polls available")
+        self.assertQuerysetEqual(response.context['latest_question_list'],[])
+
+        
+    def test_future_question_and_past_question(self):
+        """
+        Even if both past and future questions exist, only past questions
+        are displayed.
+        """
+        past_question =create_question(question_text="Past question.", days=-30) 
+        create_question(question_text="Future question.", days=30) 
+        response = self.client.get(reverse("polls:index"))
+        self.assertQuerysetEqual(response.context['latest_question_list'],[past_question],)
+
+
+       
+    def test_two_past_questions(self):
+        """
+        The questions index page may display multiple questions.
+        """
+        past_question_1 =create_question(question_text="Past question.", days=-30) 
+        past_question_2 =create_question(question_text="Past question.", days=-40) 
+        response = self.client.get(reverse("polls:index"))
+        self.assertQuerysetEqual(response.context['latest_question_list'],[past_question_1,past_question_2],)
 
 class QuestionModelTests(TestCase):
     def test_was_published_recently_with_future_question(self):
