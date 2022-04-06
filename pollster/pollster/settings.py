@@ -25,8 +25,8 @@ SECRET_KEY = '*i*1qvk70goxc@n@ljc(myz)ezui*qzic&19oy*yt#_chrm73^'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-# For some reason, if you turn DEBUG off, it affects static files (Django wouldn't find them
-# --- 404 error)
+# If you turn DEBUG off, it affects static files (Django wouldn't find them
+# --- 404 error) [https://docs.djangoproject.com/en/4.0/howto/static-files/]
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 

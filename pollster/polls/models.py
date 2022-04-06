@@ -1,6 +1,8 @@
 import datetime
 from django.db import models
 from django.utils import timezone
+from django.contrib import admin
+
 
 class Question(models.Model):
     question_text = models.CharField(max_length=200)
@@ -8,6 +10,15 @@ class Question(models.Model):
     
     def __str__(self):
         return self.question_text
+
+    @admin.display(
+        boolean=True,
+        ordering='pub_date', #order by ;  Choices are: choice, id, pub_date, question_text
+        description='Published recently?',
+        
+        # This is called a decorator. It must be placed right above the method it's being used for (was_published_recently() in this case)
+        # It modifies the 'was_published_recently' column in the admin page.
+        )
 
     def was_published_recently(self):
         now = timezone.now()
