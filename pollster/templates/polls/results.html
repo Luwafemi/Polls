@@ -11,43 +11,53 @@
 	{% endfor %}
 </ul>
 
-<div id="myChart"></div>
- 
+<div id="myChart" style="margin-bottom:25px"></div>
+
 <a class="btn btn-secondary" href="{% url 'polls:index' %}">Back To Polls</a>
 <a class="btn btn-dark" href="{% url 'polls:detail' question.id %}" style="float:right;margin-bottom:7px">Vote again?</a>
 
-
 <script src="https://cdn.zingchart.com/zingchart.min.js"></script>
 <script>
-  zingchart.render({
-    id: 'myChart',
-    data: {
-		"type": "bar3d",
-		"plot": {
-		  "value-box": {
-			"text": "%v"
-		  },
-		},
-		"scale-x": {
-		  "values": [
-			"Mon",
-			"Wed",
-			"Fri"
-		  ]
-		},
-		"series": [
-		  
-		  {
-			"values": [1,4,3],
-			"text": "oranges"
-		  }
-		]
-	  }
+	var [choiceArray, voteArray] =[[],[]]
 	
-  });
+	{% for choice in question.choice_set.all %}
+	  choiceArray.push('{{choice.choice_text}}')
+	  voteArray.push('{{choice.votes}}')
+	{% endfor %}
+	voteArray = voteArray.map(item=>Number(item))
+	zingchart.render({
+		id: 'myChart',
+		data: {
+			"type": "bar",
+			"plot": {
+			"aspect": 'cone',  
+			"value-box": {
+				"text": "%v"
+			},
+			},
+			"scale-x": {
+			"labels": choiceArray,
+			'item':{
+				'fontSize':9,
+				'font-family': "Georgia",
+				'background-color': "#ffe6e6",
+				padding: "5%",
+				angle:-30,
+			},
+			{% comment %} 'items-overlap': true, 
+			'max-items':5 {% endcomment %}
+			
+			},
+			"series": [
+			{
+				"values": voteArray,
+			}
+			]
+		}
+		
+	});
 </script>
 </body>
-
 
 {% endblock %}
 
