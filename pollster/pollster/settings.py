@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = '*i*1qvk70goxc@n@ljc(myz)ezui*qzic&19oy*yt#_chrm73^'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 # If you turn DEBUG off, it affects static files (Django wouldn't find them
 # --- 404 error) [https://docs.djangoproject.com/en/4.0/howto/static-files/]
 
