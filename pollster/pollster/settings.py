@@ -24,9 +24,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = '*i*1qvk70goxc@n@ljc(myz)ezui*qzic&19oy*yt#_chrm73^'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+# DEBUG = False
 # If you turn DEBUG off, it affects static files (Django wouldn't find them
 # --- 404 error) [https://docs.djangoproject.com/en/4.0/howto/static-files/]
+DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
+#[https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Deployment] (explanation for the above)
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
@@ -45,6 +47,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -128,3 +131,13 @@ STATIC_ROOT = BASE_DIR / "static"
 # Check [https://docs.djangoproject.com/en/3.2/releases/3.2/#customizing-type-of-auto-created-primary-keys]
 # [https://stackoverflow.com/questions/66971594/auto-create-primary-key-used-when-not-defining-a-primary-key-type-warning-in-dja]
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
+# Heroku: Update database configuration from $DATABASE_URL.
+import dj_database_url
+db_from_env = dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(db_from_env)
+
+# Simplified static file serving.
+# https://pypi.org/project/whitenoise/
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
