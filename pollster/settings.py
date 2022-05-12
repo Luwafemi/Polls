@@ -32,7 +32,7 @@ SECRET_KEY = '*i*1qvk70goxc@n@ljc(myz)ezui*qzic&19oy*yt#_chrm73^'
 DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 #[https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Deployment] (explanation for the above)
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'https://luwafemi-polls.herokuapp.com']
 
 
 # Application definition
