@@ -1,1 +1,1 @@
-web: gunicorn pollster.wsgi --log-file -
+web: gunicorn pollster.pollster.wsgi --log-file -
