@@ -1,3 +1,7 @@
 /* a {
     background-color: yellow !important
 } */
+.bg-primary, .btn-primary {
+    background-color: teal !important;
+    border-color: teal !important;
+}
