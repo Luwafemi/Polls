@@ -34,6 +34,8 @@ DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'luwafemi-polls.herokuapp.com','luwafemi-polls.up.railway.app']
 
+CSRF_TRUSTED_ORIGINS = ['https://luwafemi-polls.up.railway.app/polls']
+
 
 # Application definition
 
